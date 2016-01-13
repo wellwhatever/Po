@@ -80,7 +80,7 @@ namespace Po
                     }
                     
                 }
-                Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++");
+                //Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++");
                 // ambil dari m yang terakhir, nilai yg terbesar
                 // bandingkan diagnosa pakar dg hasil (intersect)
                 // count+1 kalo ada;
@@ -104,7 +104,7 @@ namespace Po
                 {
                     counter++;
                 }
-                Console.WriteLine();
+                //Console.WriteLine();
             }
         }
 
@@ -184,9 +184,9 @@ namespace Po
                 if(indeksOfMass.Contains(i)) continue; // lanjut ke i berikutnya kalo indeks ke-i udah diperiksa di j
                 indeksOfMass.Add(i);
                 
-                Console.Write("indeks ke-" + i + " ");
-                DebugString(mK[i].GetPenyakit());
-                Console.WriteLine();
+                //Console.Write("indeks ke-" + i + " ");
+                //DebugString(mK[i].GetPenyakit());
+                //Console.WriteLine();
 
                 if (mK[i].GetPenyakit().Contains("kosong"))
                 {
@@ -218,8 +218,8 @@ namespace Po
 
                 if (!mK[i].GetPenyakit().Contains("kosong"))
                 {
-                    DebugString(mK[i].GetPenyakit());
-                    Console.WriteLine(pembilang + " / (1 - " + pembagi + ") ");
+                    //DebugString(mK[i].GetPenyakit());
+                    //Console.WriteLine(pembilang + " / (1 - " + pembagi + ") ");
 
                     Mass mm = new Mass();
                     mm.SetPenyakit(mK[i].GetPenyakit());
@@ -230,7 +230,7 @@ namespace Po
                 }
                 
             }
-            Console.WriteLine("------------------------------");
+            //Console.WriteLine("------------------------------");
             return mBaru;
 
         }

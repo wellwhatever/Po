@@ -93,42 +93,45 @@ namespace Po
             }
             
             de = new Density(rule);
-            
-            List<Individu> P = new List<Individu>();
-            for (int i = 0; i < popSize; i++)
+            for (int iter = 0; iter < iterasi; iter++)
             {
-                Individu inv = new Individu(de.GetDensity());
-                DempsterShafer ds = new DempsterShafer(inv, listKasus);
-                inv.SetFitness(ds.GetFitness());
-                P.Add(inv);
+                Console.WriteLine("Iteasi ke - " + (iter + 1) + " ---------------------------------");
+                List<Individu> P = new List<Individu>();
+                for (int i = 0; i < popSize; i++)
+                {
+                    Individu inv = new Individu(de.GetDensity());
+                    DempsterShafer ds = new DempsterShafer(inv, listKasus);
+                    inv.SetFitness(ds.GetFitness());
+                    P.Add(inv);
+                }
+
+                List<Individu> C = new List<Individu>();
+                CrossOver co = new CrossOver(P, cr, popSize);
+                C = co.GetCrossover();
+
+                for (int j = 0; j < C.Count; j++)
+                {
+                    DempsterShafer ds = new DempsterShafer(C[j], listKasus);
+                    C[j].SetFitness(ds.GetFitness());
+                }
+
+                double minimum = C[0].GetFitness();
+                double maximum = 0;
+                for (int k = 0; k < C.Count; k++)
+                {
+                    if (minimum > C[k].GetFitness()) minimum = C[k].GetFitness();
+                    if (maximum < C[k].GetFitness()) maximum = C[k].GetFitness();
+                }
+
+                double maxmin = maximum - minimum;
+
+                Mutasi mts = new Mutasi(P, mr, popSize, maxmin, rule);
+                C.Add(mts.GetMutasi());
+                DempsterShafer dss = new DempsterShafer(C[C.Count - 1], listKasus);
+                C[C.Count - 1].SetFitness(dss.GetFitness());
+
+                Selection slct = new Selection(P, C, popSize);
             }
-
-            List<Individu> C = new List<Individu>();
-            CrossOver co = new CrossOver(P, cr, popSize);
-            C = co.GetCrossover();
-
-            for (int j = 0; j < C.Count; j++)
-            {
-                DempsterShafer ds = new DempsterShafer(C[j], listKasus);
-                C[j].SetFitness(ds.GetFitness());
-            }
-
-            double minimum = C[0].GetFitness();
-            double maximum = 0;
-            for (int k = 0; k < C.Count; k++)
-            {
-                if (minimum > C[k].GetFitness()) minimum = C[k].GetFitness();
-                if (maximum < C[k].GetFitness()) maximum = C[k].GetFitness();
-            }
-
-            double maxmin = maximum - minimum; 
-
-            Mutasi mts = new Mutasi(P, mr, popSize, maxmin, rule);
-            C.Add(mts.GetMutasi());
-            DempsterShafer dss = new DempsterShafer(C[C.Count-1], listKasus);
-            C[C.Count-1].SetFitness(dss.GetFitness());
-
-            Selection slct = new Selection(P, C);
         }
     }
 }

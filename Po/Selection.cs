@@ -8,11 +8,11 @@ namespace Po
 {
     class Selection
     {
-        public Selection(List<Individu> P, List<Individu> C)
+        public Selection(List<Individu> P, List<Individu> C, int popSize)
         {
             P.AddRange(C);
             List<Individu> std = P.OrderByDescending(f => f.GetFitness()).ToList();
-            for (int i = 0; i < std.Count; i++)
+            for (int i = 0; i < popSize; i++)
             {
                 Console.WriteLine(std[i].GetFitness());
             }
