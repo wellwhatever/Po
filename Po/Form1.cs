@@ -25,21 +25,62 @@ namespace Po
 
             List<Gejala> rule = new List<Gejala>();
 
-            foreach (DataRow row in dt.Rows)
+            double[,] cek = {
+                {0.534, 0.875, 0.530},
+                {0.238, 0.374, 0.573},
+                {0.468,	0,	0},
+                {0.375,	0.583, 0.384},
+                {0,	0.347, 0.474},
+                {0.472,	0.582, 0},
+                {0,	0.285, 0.372},
+                {0,	0.514, 0.572},
+                {0.372,	0.512, 0},
+                {0.582,	0, 0},
+                {0,	0.352, 0},
+                {0,	0,	0.235},
+                {0.682,	0.235, 0},
+                {0,	0.523, 0},
+                {0.5325, 0,	0},
+                {0.5244, 0.483,	0},
+                {0,	0.602, 0.662}
+            };
+
+            List<double[]> cok = new List<double[]>();
+            for (int z = 0; z < cek.GetLength(0); z++)
             {
-                Gejala g = new Gejala();
-                double[] p = new double[3];
-                g.SetKodeGejala(Convert.ToString(row["kode_gejala"]));
-                g.SetNamaGejala(Convert.ToString(row["nama_gejala"]));
-                p[0] = Convert.ToDouble(row["pneumonia"]);
-                p[1] = Convert.ToDouble(row["bronkitis"]);
-                p[2] = Convert.ToDouble(row["urti"]);
-                g.SetPenyakit(p);
-                rule.Add(g);
+                double[] fak = new double[3];
+                fak[0] = cek[z, 0];
+                fak[1] = cek[z, 1];
+                fak[2] = cek[z, 2];
+                cok.Add(fak);
+            }
+
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    Gejala g = new Gejala();
+                    double[] p = new double[3];
+                    g.SetKodeGejala(Convert.ToString(row["kode_gejala"]));
+                    g.SetNamaGejala(Convert.ToString(row["nama_gejala"]));
+                    p[0] = Convert.ToDouble(row["pneumonia"]);
+                    p[1] = Convert.ToDouble(row["bronkitis"]);
+                    p[2] = Convert.ToDouble(row["urti"]);
+                    g.SetPenyakit(p);
+                    rule.Add(g);
+                }
+
+            List<Gejala> pesatu = new List<Gejala>();
+
+            for (int i = 0; i < rule.Count; i++)
+            {
+                Gejala h = new Gejala();
+                h.SetKodeGejala(rule[i].GetKodeGejala());
+                h.SetPenyakit(cok[i]);
+                pesatu.Add(h);
             }
 
             de = new Density(rule);
-            p1 = new Individu(de.GetDensity());
+            p1 = new Individu(pesatu);
             p2 = new Individu(de.GetDensity());
         }
 
@@ -53,18 +94,6 @@ namespace Po
                 string s = Convert.ToString(r["gejala"]);
                 string[] gejala = Array.ConvertAll(s.Split(','), ge => ge.Trim());
                 string diagnosa = Convert.ToString(r["diagnosa"]);
-                //foreach (string g in gejala)
-                //{
-                //    double[] d1 = p1.find(g);
-                //    Console.Write(g + " ");
-                //    for (int i = 0; i < d1.Length; i++)
-                //    {
-                //        Console.Write(d1[i] + " ");
-                //    }
-                //    Console.WriteLine();
-
-                //}
-                //Console.WriteLine();
                 Kasus k = new Kasus();
                 k.SetGejala(gejala);
                 k.SetDiagnosa(diagnosa);
@@ -76,7 +105,7 @@ namespace Po
             i.SetDiagnosa("P");
             List<Kasus> coba = new List<Kasus>();
             coba.Add(i);
-            DempsterShafer shafer = new DempsterShafer(p1, coba);
+            DempsterShafer shafer = new DempsterShafer(p1, ks);
             Console.WriteLine("FITNESS " + shafer.GetFitness());
         }
 

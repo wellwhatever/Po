@@ -24,7 +24,6 @@ namespace Po
                 Console.Write("Kasus " + (i + 1) + " | ");
                 string[] gejala = data[i].GetGejala();
                 int jumlahM = (gejala.Length*2)-1;
-                //double[] m = new double[jumlahM];
                 List<List<Mass>> Masses = new List<List<Mass>>();
                 int mCounter = 0;
 
@@ -32,7 +31,7 @@ namespace Po
                 {
                     double[] nilaiGejala = individu.find(gejala[j]);
                     double max = GetMaximumDensity(nilaiGejala); // max jadi nilai m                  
-
+                    //Console.WriteLine(gejala[j] + " " + max);
                     List<string> sTheta = new List<string>() { "theta" };
                     if (j == 0) { // gejala pertama 
                         List<Mass> M = new List<Mass>();
@@ -51,7 +50,7 @@ namespace Po
                         Masses.Add(M); // m1
                         //mCounter = 0;
                     } else { // gejala ke-2 dst
-                        //Console.WriteLine("gejala ke- " + gejala[j]);
+                        //Console.WriteLine("Gejala ke- " + gejala[j]);
 
                         List<Mass> M = new List<Mass>();
 
@@ -75,13 +74,14 @@ namespace Po
 
                         matriksKombinasi = CombineMass(Masses[mCounter - 1], Masses[mCounter]);
                         List<Mass> mBaru = GetMassBaru(matriksKombinasi);
+
                         Masses.Add(mBaru);
                         mCounter++;
+                        //Console.WriteLine(mCounter + " " + mBaru[mBaru.Count-1].GetDensity());
                         
                     }
                     
                 }
-                //Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++");
                 // ambil dari m yang terakhir, nilai yg terbesar
                 // bandingkan diagnosa pakar dg hasil (intersect)
                 // count+1 kalo ada;
@@ -128,11 +128,12 @@ namespace Po
                 {
                     Mass hasilKali = new Mass();
                     hasilKali.SetPenyakit(GetIntersection(a[i].GetPenyakit(), b[j].GetPenyakit()));
-                    hasilKali.SetDensity(a[i].GetDensity() * b[j].GetDensity());
-                    
+                    hasilKali.SetDensity(Math.Round((a[i].GetDensity() * b[j].GetDensity()), 3));
+                    //Console.WriteLine(a[i].GetDensity() + " * " + b[j].GetDensity() + " = " + hasilKali.GetDensity());
                     hasilKombinasi.Add(hasilKali);
                 }
             }
+            //Console.WriteLine("--");
             return hasilKombinasi;
         }
 
