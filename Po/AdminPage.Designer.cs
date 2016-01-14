@@ -43,12 +43,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.adminTab.SuspendLayout();
             this.tabRule.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gejalaDgv)).BeginInit();
             this.tabKasus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kasusDgv)).BeginInit();
             this.tabPengujian.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // adminTab
@@ -108,6 +110,7 @@
             // 
             // tabPengujian
             // 
+            this.tabPengujian.Controls.Add(this.dataGridView1);
             this.tabPengujian.Controls.Add(this.prosesBtn);
             this.tabPengujian.Controls.Add(this.iterationBox);
             this.tabPengujian.Controls.Add(this.mrBox);
@@ -203,6 +206,17 @@
             this.label1.Text = "Cross Rate";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(207, 12);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(450, 320);
+            this.dataGridView1.TabIndex = 9;
+            // 
             // AdminPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,6 +234,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kasusDgv)).EndInit();
             this.tabPengujian.ResumeLayout(false);
             this.tabPengujian.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -241,5 +256,6 @@
         private System.Windows.Forms.TextBox crBox;
         private System.Windows.Forms.TextBox popSizeBox;
         private System.Windows.Forms.Button prosesBtn;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

@@ -97,8 +97,10 @@ namespace Po
             {
                 Console.WriteLine("Iteasi ke - " + (iter + 1) + " ---------------------------------");
                 List<Individu> P = new List<Individu>();
+                Console.WriteLine("-- Dempster Shafer Individu --");
                 for (int i = 0; i < popSize; i++)
                 {
+                    Console.WriteLine(">> Individu ke - " + (i + 1));
                     Individu inv = new Individu(de.GetDensity());
                     DempsterShafer ds = new DempsterShafer(inv, listKasus);
                     inv.SetFitness(ds.GetFitness());
@@ -109,8 +111,10 @@ namespace Po
                 CrossOver co = new CrossOver(P, cr, popSize);
                 C = co.GetCrossover();
 
+                Console.WriteLine("-- Dempster Shafer Crossover --");
                 for (int j = 0; j < C.Count; j++)
                 {
+                    Console.WriteLine(">> Crossover ke - " + (j + 1));
                     DempsterShafer ds = new DempsterShafer(C[j], listKasus);
                     C[j].SetFitness(ds.GetFitness());
                 }
@@ -125,11 +129,13 @@ namespace Po
 
                 double maxmin = maximum - minimum;
 
+                Console.WriteLine("-- Mutasi, Dempster Shafer Mutasi --");
                 Mutasi mts = new Mutasi(P, mr, popSize, maxmin, rule);
                 C.Add(mts.GetMutasi());
                 DempsterShafer dss = new DempsterShafer(C[C.Count - 1], listKasus);
                 C[C.Count - 1].SetFitness(dss.GetFitness());
 
+                Console.WriteLine("-- Nilai Fitness Akhir --");
                 Selection slct = new Selection(P, C, popSize);
             }
         }

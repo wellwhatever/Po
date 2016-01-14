@@ -38,7 +38,7 @@ namespace Po
                 }
                 else
                 {
-                    gg.SetPenyakit(rule[i].GetPenyakit());
+                    gg.SetPenyakit(individu[randomIndividu].find(rule[i].GetKodeGejala()));
                 }
 
                 g.Add(gg);

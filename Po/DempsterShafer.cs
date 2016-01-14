@@ -21,6 +21,7 @@ namespace Po
 
             for (int i = 0; i < data.Count; i++)
             {
+                Console.Write("Kasus " + (i + 1) + " | ");
                 string[] gejala = data[i].GetGejala();
                 int jumlahM = (gejala.Length*2)-1;
                 //double[] m = new double[jumlahM];
@@ -99,7 +100,12 @@ namespace Po
                 }
 
                 List<string> d = mFinal[indeksMaks].GetPenyakit();
-                
+
+                DebugString(d);
+                Console.Write(" | Nilai Belief : " + terbesar);
+                Console.WriteLine();
+
+
                 if (d.Contains(data[i].GetDiagnosa()))
                 {
                     counter++;
