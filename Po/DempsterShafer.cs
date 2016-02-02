@@ -13,6 +13,7 @@ namespace Po
         private List<Kasus> data;
         private double fitness;
         private int counter = 0;
+        private List<Mass> mFinal;
 
         public DempsterShafer(Individu individu, List<Kasus> data)
         {
@@ -30,7 +31,18 @@ namespace Po
                 for (int j = 0; j < gejala.Length; j++)
                 {
                     double[] nilaiGejala = individu.find(gejala[j]);
-                    double max = GetMaximumDensity(nilaiGejala); // max jadi nilai m                  
+                    double max = GetMaximumDensity(nilaiGejala); // max jadi nilai m  
+                    if (max == 1)
+                    {
+                        Mass m = new Mass();
+                        m.SetPenyakit(GetKodePenyakit(nilaiGejala));
+                        m.SetDensity(max);
+                     
+                        if(m.GetPenyakit().Contains(data[i].GetDiagnosa())) {
+                            counter++;
+                        }
+                        break;
+                    }
                     //Console.WriteLine(gejala[j] + " " + max);
                     List<string> sTheta = new List<string>() { "theta" };
                     if (j == 0) { // gejala pertama 
@@ -86,7 +98,7 @@ namespace Po
                 // bandingkan diagnosa pakar dg hasil (intersect)
                 // count+1 kalo ada;
 
-                List<Mass> mFinal = Masses[mCounter];
+                mFinal = Masses[mCounter];
                 int indeksMaks = 0;
                 double terbesar = 0;
                                 
@@ -276,6 +288,11 @@ namespace Po
             {
                 Console.Write(s + " ");
             }
+        }
+
+        public List<Mass> GetMFinal()
+        {
+            return this.mFinal;
         }
     }
 }

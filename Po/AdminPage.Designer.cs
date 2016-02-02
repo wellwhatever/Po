@@ -34,6 +34,18 @@
             this.tabKasus = new System.Windows.Forms.TabPage();
             this.kasusDgv = new System.Windows.Forms.DataGridView();
             this.tabPengujian = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.saveBtn = new System.Windows.Forms.Button();
+            this.beliefDgv = new System.Windows.Forms.DataGridView();
+            this.kode_gejala = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pneumonia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bronkitis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.urti = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.individuDgv = new System.Windows.Forms.DataGridView();
+            this.individu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fitness = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prosesBtn = new System.Windows.Forms.Button();
             this.iterationBox = new System.Windows.Forms.TextBox();
             this.mrBox = new System.Windows.Forms.TextBox();
@@ -43,14 +55,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelAkurasi = new System.Windows.Forms.Label();
             this.adminTab.SuspendLayout();
             this.tabRule.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gejalaDgv)).BeginInit();
             this.tabKasus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kasusDgv)).BeginInit();
             this.tabPengujian.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.beliefDgv)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.individuDgv)).BeginInit();
             this.SuspendLayout();
             // 
             // adminTab
@@ -110,7 +127,7 @@
             // 
             // tabPengujian
             // 
-            this.tabPengujian.Controls.Add(this.dataGridView1);
+            this.tabPengujian.Controls.Add(this.tabControl1);
             this.tabPengujian.Controls.Add(this.prosesBtn);
             this.tabPengujian.Controls.Add(this.iterationBox);
             this.tabPengujian.Controls.Add(this.mrBox);
@@ -127,6 +144,116 @@
             this.tabPengujian.TabIndex = 2;
             this.tabPengujian.Text = "Pengujian";
             this.tabPengujian.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(193, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(464, 320);
+            this.tabControl1.TabIndex = 9;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.labelAkurasi);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.saveBtn);
+            this.tabPage1.Controls.Add(this.beliefDgv);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(456, 294);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Hasil Belief Optimal";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Location = new System.Drawing.Point(260, 267);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(190, 23);
+            this.saveBtn.TabIndex = 1;
+            this.saveBtn.Text = "Save to Database";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
+            // beliefDgv
+            // 
+            this.beliefDgv.AllowUserToAddRows = false;
+            this.beliefDgv.AllowUserToDeleteRows = false;
+            this.beliefDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.beliefDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.kode_gejala,
+            this.pneumonia,
+            this.bronkitis,
+            this.urti});
+            this.beliefDgv.Location = new System.Drawing.Point(4, 4);
+            this.beliefDgv.Name = "beliefDgv";
+            this.beliefDgv.ReadOnly = true;
+            this.beliefDgv.Size = new System.Drawing.Size(446, 256);
+            this.beliefDgv.TabIndex = 0;
+            // 
+            // kode_gejala
+            // 
+            this.kode_gejala.HeaderText = "KODE GEJALA";
+            this.kode_gejala.Name = "kode_gejala";
+            this.kode_gejala.ReadOnly = true;
+            // 
+            // pneumonia
+            // 
+            this.pneumonia.HeaderText = "PNEUMONIA";
+            this.pneumonia.Name = "pneumonia";
+            this.pneumonia.ReadOnly = true;
+            // 
+            // bronkitis
+            // 
+            this.bronkitis.HeaderText = "BRONKITIS";
+            this.bronkitis.Name = "bronkitis";
+            this.bronkitis.ReadOnly = true;
+            // 
+            // urti
+            // 
+            this.urti.HeaderText = "URTI";
+            this.urti.Name = "urti";
+            this.urti.ReadOnly = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.individuDgv);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(456, 294);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Generasi Terakhir";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // individuDgv
+            // 
+            this.individuDgv.AllowUserToAddRows = false;
+            this.individuDgv.AllowUserToDeleteRows = false;
+            this.individuDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.individuDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.individu,
+            this.fitness});
+            this.individuDgv.Location = new System.Drawing.Point(4, 6);
+            this.individuDgv.Name = "individuDgv";
+            this.individuDgv.ReadOnly = true;
+            this.individuDgv.Size = new System.Drawing.Size(246, 285);
+            this.individuDgv.TabIndex = 0;
+            // 
+            // individu
+            // 
+            this.individu.HeaderText = "Individu";
+            this.individu.Name = "individu";
+            this.individu.ReadOnly = true;
+            // 
+            // fitness
+            // 
+            this.fitness.HeaderText = "Nilai Fitness";
+            this.fitness.Name = "fitness";
+            this.fitness.ReadOnly = true;
             // 
             // prosesBtn
             // 
@@ -206,16 +333,23 @@
             this.label1.Text = "Cross Rate";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
+            // label5
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(207, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(450, 320);
-            this.dataGridView1.TabIndex = 9;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 270);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Hasil Akurasi : ";
+            // 
+            // labelAkurasi
+            // 
+            this.labelAkurasi.AutoSize = true;
+            this.labelAkurasi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAkurasi.Location = new System.Drawing.Point(87, 267);
+            this.labelAkurasi.Name = "labelAkurasi";
+            this.labelAkurasi.Size = new System.Drawing.Size(0, 20);
+            this.labelAkurasi.TabIndex = 3;
             // 
             // AdminPage
             // 
@@ -234,7 +368,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.kasusDgv)).EndInit();
             this.tabPengujian.ResumeLayout(false);
             this.tabPengujian.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.beliefDgv)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.individuDgv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -256,6 +395,19 @@
         private System.Windows.Forms.TextBox crBox;
         private System.Windows.Forms.TextBox popSizeBox;
         private System.Windows.Forms.Button prosesBtn;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView beliefDgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kode_gejala;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pneumonia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bronkitis;
+        private System.Windows.Forms.DataGridViewTextBoxColumn urti;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView individuDgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn individu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fitness;
+        private System.Windows.Forms.Button saveBtn;
+        private System.Windows.Forms.Label labelAkurasi;
+        private System.Windows.Forms.Label label5;
     }
 }

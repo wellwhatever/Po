@@ -28,20 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.randomBtn = new System.Windows.Forms.Button();
             this.diagnosaBtn = new System.Windows.Forms.Button();
             this.adminBtn = new System.Windows.Forms.Button();
+            this.randomBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // randomBtn
-            // 
-            this.randomBtn.Location = new System.Drawing.Point(389, 13);
-            this.randomBtn.Name = "randomBtn";
-            this.randomBtn.Size = new System.Drawing.Size(75, 23);
-            this.randomBtn.TabIndex = 0;
-            this.randomBtn.Text = "Random";
-            this.randomBtn.UseVisualStyleBackColor = true;
-            this.randomBtn.Click += new System.EventHandler(this.randomBtn_Click);
             // 
             // diagnosaBtn
             // 
@@ -63,6 +53,16 @@
             this.adminBtn.UseVisualStyleBackColor = true;
             this.adminBtn.Click += new System.EventHandler(this.adminBtn_Click);
             // 
+            // randomBtn
+            // 
+            this.randomBtn.Location = new System.Drawing.Point(389, 13);
+            this.randomBtn.Name = "randomBtn";
+            this.randomBtn.Size = new System.Drawing.Size(75, 23);
+            this.randomBtn.TabIndex = 0;
+            this.randomBtn.Text = "Random";
+            this.randomBtn.UseVisualStyleBackColor = true;
+            this.randomBtn.Click += new System.EventHandler(this.randomBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -79,9 +79,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button randomBtn;
         private System.Windows.Forms.Button diagnosaBtn;
         private System.Windows.Forms.Button adminBtn;
+        private System.Windows.Forms.Button randomBtn;
     }
 }
 

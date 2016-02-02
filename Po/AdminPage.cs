@@ -15,6 +15,8 @@ namespace Po
         private SqliteDatabase db;
         bool formClosed;
         Density de;
+        List<Individu> iBaru;
+        List<Gejala> rule;
         public AdminPage()
         {
             InitializeComponent();
@@ -56,6 +58,8 @@ namespace Po
 
         private void prosesBtn_Click(object sender, EventArgs e)
         {
+            beliefDgv.Rows.Clear();
+            individuDgv.Rows.Clear();
             int popSize = Convert.ToInt32(popSizeBox.Text);
             int iterasi = Convert.ToInt32(iterationBox.Text);
             double cr = Convert.ToDouble(crBox.Text);
@@ -63,7 +67,7 @@ namespace Po
 
             DataTable dt = db.query("SELECT * FROM gejala");
 
-            List<Gejala> rule = new List<Gejala>();
+            rule = new List<Gejala>();
 
             foreach (DataRow row in dt.Rows)
             {
@@ -93,20 +97,31 @@ namespace Po
             }
             
             de = new Density(rule);
+            iBaru = new List<Individu>();
+            List<int> index = new List<int>();
             for (int iter = 0; iter < iterasi; iter++)
             {
-                Console.WriteLine("Iteasi ke - " + (iter + 1) + " ---------------------------------");
-                List<Individu> P = new List<Individu>();
-                Console.WriteLine("-- Dempster Shafer Individu --");
-                for (int i = 0; i < popSize; i++)
+                // Init
+                List<Individu> P;
+                Console.WriteLine("Iterasi ke - " + (iter + 1) + " ---------------------------------");
+                if (iter == 0)
                 {
-                    Console.WriteLine(">> Individu ke - " + (i + 1));
-                    Individu inv = new Individu(de.GetDensity());
-                    DempsterShafer ds = new DempsterShafer(inv, listKasus);
-                    inv.SetFitness(ds.GetFitness());
-                    P.Add(inv);
+                    P = new List<Individu>();
+                    Console.WriteLine("-- Dempster Shafer Individu --");
+                    for (int i = 0; i < popSize; i++)
+                    {
+                        Console.WriteLine(">> Individu ke - " + (i + 1));
+                        Individu inv = new Individu(de.GetDensity());
+                        DempsterShafer ds = new DempsterShafer(inv, listKasus);
+                        inv.SetFitness(ds.GetFitness());
+                        P.Add(inv);
+                    }
                 }
-
+                else
+                {
+                    P = iBaru;
+                }
+                
                 List<Individu> C = new List<Individu>();
                 CrossOver co = new CrossOver(P, cr, popSize);
                 C = co.GetCrossover();
@@ -137,7 +152,80 @@ namespace Po
 
                 Console.WriteLine("-- Nilai Fitness Akhir --");
                 Selection slct = new Selection(P, C, popSize);
+                iBaru = slct.GetITerbaik();
+                index = slct.GetIndex();
+            }
+            PopulateDgv(rule, iBaru[0]);
+            double akurasi = iBaru[0].GetFitness() * 100; 
+            labelAkurasi.Text = akurasi.ToString() + " %";
+
+            for (int i = 0; i < iBaru.Count; i++)
+            {
+                int idIndividu = index[i]+1;
+                string kode;
+                if ( idIndividu > popSize)
+                {
+                    idIndividu -= popSize;
+                    kode = "C" + idIndividu;
+                }
+                else
+                {
+                    kode = "P" + idIndividu;
+                }
+                this.individuDgv.Rows.Add(kode, iBaru[i].GetFitness());
+            }
+
+            MessageBox.Show("Proses Perhitungan Selesai");
+        }
+
+        private void PopulateDgv(List<Gejala> rule, Individu terbaik)
+        {
+            for (int i = 0; i < rule.Count; i++)
+            {
+                double[] nilaiDensity = terbaik.find(rule[i].GetKodeGejala());
+                this.beliefDgv.Rows.Add(rule[i].GetKodeGejala(), nilaiDensity[0], nilaiDensity[1], nilaiDensity[2]);
             }
         }
+
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            if (beliefDgv.Rows.Count == 0)
+            {
+                MessageBox.Show("Tidak ada data yang disimpan!");
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("Do you want to save changes?", "Confirmation", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    //save individu baru ke db
+                    for (int i = 0; i < rule.Count; i++)
+                    {
+                        //cek kode gejala
+                        string kode_gejala = rule[i].GetKodeGejala();
+                        double[] nilaiDensity = iBaru[0].find(rule[i].GetKodeGejala());
+
+                        DataTable ins = db.query("SELECT * FROM individu WHERE kode_gejala = '" + kode_gejala + "'");
+                        if (ins.Rows.Count == 0)
+                        {
+                            string query = "INSERT INTO individu ('kode_gejala', 'pneumonia', 'bronkitis', 'urti') ";
+                            query += "VALUES ('"+kode_gejala.ToUpper()+"', " + nilaiDensity[0] + ", " + nilaiDensity[1] + ", " + nilaiDensity[2] + ")";
+                            int created = db.nQuery(query);
+                        }
+                        else
+                        {
+                            string query = "UPDATE individu ";
+                            query += "SET pneumonia = " + nilaiDensity[0];
+                            query += ", bronkitis = " + nilaiDensity[1];
+                            query += ", urti = " + nilaiDensity[2];
+                            query += " WHERE kode_gejala = '" + kode_gejala + "'";
+                            int updated = db.nQuery(query);
+                        }
+                    }
+                    MessageBox.Show("Data berhasil disimpan!");
+                }
+            }
+            
+        } 
     }
 }
