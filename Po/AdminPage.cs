@@ -89,7 +89,8 @@ namespace Po
             {
                 string s = Convert.ToString(r["gejala"]);
                 string[] gejala = Array.ConvertAll(s.Split(','), ge => ge.Trim());
-                string diagnosa = Convert.ToString(r["diagnosa"]);
+                string d = Convert.ToString(r["diagnosa"]);
+                string[] diagnosa = Array.ConvertAll(d.Split(','), di => di.Trim());
                 Kasus k = new Kasus();
                 k.SetGejala(gejala);
                 k.SetDiagnosa(diagnosa);

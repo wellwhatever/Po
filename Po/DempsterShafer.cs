@@ -37,9 +37,15 @@ namespace Po
                         Mass m = new Mass();
                         m.SetPenyakit(GetKodePenyakit(nilaiGejala));
                         m.SetDensity(max);
-                     
-                        if(m.GetPenyakit().Contains(data[i].GetDiagnosa())) {
-                            counter++;
+
+                        string[] indikasi = data[i].GetDiagnosa();
+
+                        foreach (string idk in indikasi)
+                        {
+                            if (m.GetPenyakit().Contains(idk))
+                            {
+                                counter++;
+                            }
                         }
                         break;
                     }
@@ -117,11 +123,15 @@ namespace Po
                 Console.Write(" | Nilai Belief : " + terbesar);
                 Console.WriteLine();
 
-
-                if (d.Contains(data[i].GetDiagnosa()))
+                string[] indi = data[i].GetDiagnosa();
+                foreach (string idk in indi)
                 {
-                    counter++;
+                    if (d.Contains(idk))
+                    {
+                        counter++;
+                    }
                 }
+                
                 //Console.WriteLine();
             }
         }

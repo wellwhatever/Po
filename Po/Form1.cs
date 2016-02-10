@@ -87,26 +87,26 @@ namespace Po
         private void randomBtn_Click(object sender, EventArgs e)
         {
             
-            DataTable doto = db.query("SELECT * FROM kasus");
-            List<Kasus> ks = new List<Kasus>();
-            foreach (DataRow r in doto.Rows)
-            {
-                string s = Convert.ToString(r["gejala"]);
-                string[] gejala = Array.ConvertAll(s.Split(','), ge => ge.Trim());
-                string diagnosa = Convert.ToString(r["diagnosa"]);
-                Kasus k = new Kasus();
-                k.SetGejala(gejala);
-                k.SetDiagnosa(diagnosa);
-                ks.Add(k);
-            }
-            string[] input = { "G2", "G11", "G15", "G3", "G6" };
-            Kasus i = new Kasus();
-            i.SetGejala(input);
-            i.SetDiagnosa("P");
-            List<Kasus> coba = new List<Kasus>();
-            coba.Add(i);
-            DempsterShafer shafer = new DempsterShafer(p1, ks);
-            Console.WriteLine("FITNESS " + shafer.GetFitness());
+            //DataTable doto = db.query("SELECT * FROM kasus");
+            //List<Kasus> ks = new List<Kasus>();
+            //foreach (DataRow r in doto.Rows)
+            //{
+            //    string s = Convert.ToString(r["gejala"]);
+            //    string[] gejala = Array.ConvertAll(s.Split(','), ge => ge.Trim());
+            //    string diagnosa = Convert.ToString(r["diagnosa"]);
+            //    Kasus k = new Kasus();
+            //    k.SetGejala(gejala);
+            //    k.SetDiagnosa(diagnosa);
+            //    ks.Add(k);
+            //}
+            //string[] input = { "G2", "G11", "G15", "G3", "G6" };
+            //Kasus i = new Kasus();
+            //i.SetGejala(input);
+            //i.SetDiagnosa("P");
+            //List<Kasus> coba = new List<Kasus>();
+            //coba.Add(i);
+            //DempsterShafer shafer = new DempsterShafer(p1, ks);
+            //Console.WriteLine("FITNESS " + shafer.GetFitness());
         }
 
         private void adminBtn_Click(object sender, EventArgs e)

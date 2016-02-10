@@ -9,7 +9,7 @@ namespace Po
     class Kasus
     {
         private string[] gejala;
-        private string diagnosa;
+        private string[] diagnosa;
 
         public void SetGejala(string[] gejala)
         {
@@ -26,12 +26,12 @@ namespace Po
             return this.gejala[i];
         }
 
-        public void SetDiagnosa(string diagnosa)
+        public void SetDiagnosa(string[] diagnosa)
         {
             this.diagnosa = diagnosa;
         }
 
-        public string GetDiagnosa()
+        public string[] GetDiagnosa()
         {
             return this.diagnosa;
         }
