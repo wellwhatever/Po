@@ -40,12 +40,17 @@ namespace Po
 
                         string[] indikasi = data[i].GetDiagnosa();
 
+                        int ada = 0;
                         foreach (string idk in indikasi)
                         {
                             if (m.GetPenyakit().Contains(idk))
                             {
-                                counter++;
+                                ada++;
                             }
+                        }
+                        if (ada != 0)
+                        {
+                            counter++;
                         }
                         break;
                     }
@@ -124,14 +129,18 @@ namespace Po
                 Console.WriteLine();
 
                 string[] indi = data[i].GetDiagnosa();
+                int a = 0;
                 foreach (string idk in indi)
                 {
                     if (d.Contains(idk))
                     {
-                        counter++;
+                        a++;
                     }
                 }
-                
+                if (a != 0)
+                {
+                    counter++;
+                }
                 //Console.WriteLine();
             }
         }
